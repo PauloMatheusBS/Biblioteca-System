@@ -1,0 +1,31 @@
+CREATE DATABASE Biblioteca;
+
+USE Biblioteca;
+
+CREATE TABLE Livros (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    autor VARCHAR(255) NOT NULL,
+    isbn VARCHAR(13) UNIQUE NOT NULL,
+    genero VARCHAR(100),
+    disponivel BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE Usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    cpf CHAR(11) UNIQUE NOT NULL,
+    administrador BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE Emprestimos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    livro_id INT NOT NULL,
+    data_emprestimo DATE NOT NULL,
+    data_devolucao DATE,
+    FOREIGN KEY (usuario_id) REFERENCES Usuarios(id),
+    FOREIGN KEY (livro_id) REFERENCES Livros(id)
+);
